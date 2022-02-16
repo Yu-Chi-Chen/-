@@ -1,0 +1,142 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+body {
+	box-sizing: border-box;
+	font-family: "Noto Sans TC", sans-serif;
+}
+.container {
+    display: flex;
+    align-items: center;
+    margin: auto;
+}
+
+.navbar-brand {
+    margin-right: 1em;
+    display: flex;
+    align-items: center;
+}
+#logo{
+    height: 40px;
+}
+nav > ul {
+    list-style: none;   /* 移除項目符號 */
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: inherit; /* 移除超連結顏色 */
+    font-size: 1.2rem;
+    padding: 10px;
+    text-decoration: none;  /* 移除超連結底線 */
+}
+
+/* 滑鼠移到 <a> 時變成深底淺色 */
+nav a:hover {
+    background-color: rgb(115, 115, 115);
+    color: white;
+}
+.nav-item {
+    flex-grow: 1;
+    border-bottom: 5px solid transparent;
+    transition: 0.3s;
+}
+
+.navSearch {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+input,button {
+    /*border: none;*/
+    /*outline: none;*/
+    height: 30px;
+    background-color: #ffffff;
+}
+/* .searchbutton{
+    padding-left: 12px;
+    width: 80%;
+    border-radius: 100px 0 0 100px;
+} */
+button {
+    height: 50px;
+    padding: 5px;
+    
+    /*border-radius: 0 100px 100px 0;*/
+    cursor: pointer;
+}
+/* .fa-search {
+    color: #555555;
+} */
+/* .fa-search:hover {
+    color: #26ff93;
+    transition: all 0.3s;
+} */
+p{
+    margin: 15px;
+}
+#btngroup{
+    align-items: center;
+}
+.simbtn{
+    background-color: rgba(20, 85, 60, 0.685);
+    color: #ffffff;
+    border-radius: 50px 50px 50px 50px;
+    margin: 5px;
+    border: none;
+}
+.sr{
+    visibility: hidden;
+}
+h1{
+    margin-left: 40px;
+    text-shadow:3px 3px 3px #cccccc;
+}
+h2{
+    margin-left: 35px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-right: 5px;
+}
+h3{
+    margin-left: 35px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-right: 5px;
+}
+h4{
+    margin-left: 35px;
+}
+div{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-right: 20px;
+}
+p{
+    margin-left: 25px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-right: 10px;
+}
+span{
+    margin-left: 20px;
+}
+canvas{
+    border: 1px solid black;
+    margin: 10px;
+    margin-left: 50px;
+}
+img{
+    margin-left: 50px;
+}
+ol{
+    font-style: italic;
+    margin-left: 35px;
+}
+table{
+    margin-left: 35px;
+}

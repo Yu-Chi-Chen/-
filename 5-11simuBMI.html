@@ -1,0 +1,772 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-eqiv="x-UA-Compaible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <!-- test for BMI example -->
+        <!-- Select Mode -->
+        <div>
+            <p>請選擇模式：</p>
+            <input type='radio' name='mode' id='val' value='val'>call by value
+            <input type='radio' name='mode' id='ref' value='ref'>call by reference
+            <button onclick='selMode();'>確定</button>
+        </div>
+
+        <!-- call by value -->
+        <div id='con' style='display:none;'>
+            <table border=1>
+                <tr>
+                    <td width=500>
+                        <div>
+                            說明:<br>
+                            世界衛生組織建議以身體質量指數（Body Mass Index, BMI）來
+                            衡量肥胖程度，其計算公式是以體重（公斤）除以身高（公尺）的平方。 
+                            國民健康署建議我國成人BMI應維持在18.5（kg/㎡）及24（kg/㎡）之間，
+                            太瘦、過重或太胖皆有礙健康。 研究顯示，體重過重或是肥胖（BMI≧24）
+                            為糖尿病、心血管疾病、惡性腫瘤等慢性疾病的主要風險因素；而過瘦的健康
+                            問題，則會有營養不良、骨質疏鬆、猝死等健康問題。
+                        </div>
+                        <table border=1>
+                            <tr>
+                                <td>成人肥胖定義</td>
+                                <td>身體質量指數(BMI)<br>(kg/m^2)</td>
+                                <td>腰圍</td>
+                            </tr>
+                            <tr>
+                                <td>體重過輕</td>
+                                <td>BMI < 18.5</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>健康體位</td>
+                                <td>18.5<=BMI<24</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>體位異常</td>
+                                <td>過重：24<=BMI<27<br>輕度肥胖：27<=BMI<30<br>中度肥胖：30<=BMI<35<br>重度肥胖：BMI>=35</td>
+                                <td>男性>=90cm<br>女性>=80cm</td>
+                            </tr>
+                        </table>
+                        <div>
+                            生理性別
+                            <select name='gender'>
+                                <option value=''>請選擇.....</option>
+                                <option value='male' >男/Male</option>
+                                <option value='female'>女/Female</option>
+                            </select><br>
+                            身高<input type='number' id='cm'>cm<br>
+                            體重<input type='number' id='kg'>kg<br>
+                            模擬模式選擇：
+                            <button onclick="enter();stop();linkCanvas();">Step by Step</button>
+                            <button onclick="enter();auto();">Auto</button>
+                            <p id='re'><span id='res'></span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <canvas id='main' height=305 width=330></canvas>
+                    </td>
+                    <td>
+                        <!-- memory -->
+                        <canvas id='mem' height=300></canvas>
+                    </td>
+                    <td width=300>
+                        <!-- 文字說明 -->
+                        <p id='explainStep'>當前步驟：<br><sapn id='cStep'></sapn></p>
+                        <textarea disabled='true' id='ta' value="" style='resize:none;width:280;height:300'></textarea>
+                    </td>
+                </tr>
+            </table>
+            
+            
+        </div>
+
+        <div id='con_ref' style='display:none;'>
+            <table border=1>
+                <tr>
+                    <td width=500>
+                        <div>
+                            說明:<br>
+                            世界衛生組織建議以身體質量指數（Body Mass Index, BMI）來
+                            衡量肥胖程度，其計算公式是以體重（公斤）除以身高（公尺）的平方。 
+                            國民健康署建議我國成人BMI應維持在18.5（kg/㎡）及24（kg/㎡）之間，
+                            太瘦、過重或太胖皆有礙健康。 研究顯示，體重過重或是肥胖（BMI≧24）
+                            為糖尿病、心血管疾病、惡性腫瘤等慢性疾病的主要風險因素；而過瘦的健康
+                            問題，則會有營養不良、骨質疏鬆、猝死等健康問題。
+                        </div>
+                        <table border=1>
+                            <tr>
+                                <td>成人肥胖定義</td>
+                                <td>身體質量指數(BMI)<br>(kg/m^2)</td>
+                                <td>腰圍</td>
+                            </tr>
+                            <tr>
+                                <td>體重過輕</td>
+                                <td>BMI < 18.5</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>健康體位</td>
+                                <td>18.5<=BMI<24</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>體位異常</td>
+                                <td>過重：24<=BMI<27<br>輕度肥胖：27<=BMI<30<br>中度肥胖：30<=BMI<35<br>重度肥胖：BMI>=35</td>
+                                <td>男性>=90cm<br>女性>=80cm</td>
+                            </tr>
+                        </table>
+                        <div>
+                            生理性別
+                            <select name='gender2'>
+                                <option value=''>請選擇.....</option>
+                                <option value='male' >男/Male</option>
+                                <option value='female'>女/Female</option>
+                            </select><br>
+                            身高<input type='number' id='cm2'>cm<br>
+                            體重<input type='number' id='kg2'>kg<br>
+                            模擬模式選擇：
+                            <button onclick="enter();linkCanvas_ref();stop();">Step by Step</button>
+                            <button onclick="enter();auto();">Auto</button>
+                            <p id='re2'><span id='res2'></span></p>
+                        </div>
+                    </td>
+                    <td>
+                        <canvas id='main2' height=460 width=330></canvas>
+                    </td>
+                    <td>
+                        <!-- memory -->
+                        <canvas id='mem2' height=300></canvas>
+                    </td>
+                    <td width=300>
+                        <!-- 文字說明 -->
+                        <p id='explainStep2'>當前步驟：<br><sapn id='cStep2'></sapn></p>
+                        <textarea disabled='true' id='ta2' value="" style='resize:none;width:280;height:300'></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p id=tt></p>
+
+    </body>
+    <script>
+        var s=0;
+        var bmi=0;
+        var gen;
+        var ctx1=document.getElementById('mem').getContext('2d');
+        var stepArr=['程式執行，尋找函式main為進入點','輸入身高數值，儲存在height記憶體區段','輸入體重，儲存在weight記憶體區段','複製height的值到h的記憶體','複製weight的值到w的記憶體','傳值呼叫函式cauBMI',
+        '控制權轉移，進入到函式cauBMI','宣告一個bmi變數','經過計算，得出結果放在bmi區域變數','輸出','函式執行結束，控制權轉移回主程式，系統收回bmi記憶體空間'];
+        var stepArr_ref=['程式執行，尋找函式main為進入點','輸入身高數值，儲存在型態為Value的height記憶體區段','輸入體重，儲存在型態為Value的weight記憶體區段','h的記憶體儲存height的記憶體位置'
+        ,'w的記憶體儲存weight的記憶體位置','傳址呼叫函式cauBMI','控制權轉移，進入到函式cauBMI','宣告一個bmi變數','經過計算，得出結果放在bmi區域變數','輸出','函式執行結束，控制權轉移回主程式，系統收回bmi記憶體空間'];
+        var str="";
+        var ext=document.getElementById('ta');
+        var ext2=document.getElementById('ta2');
+        var ctx=document.getElementById('main').getContext('2d');
+        var ctx2=document.getElementById('main2').getContext('2d');
+        var ctx3=document.getElementById('mem2').getContext('2d');
+        var timer,flag;
+        
+
+        function selMode(){
+            if(document.getElementById('val').checked){
+                document.getElementById('con').style.display='inline';
+                document.getElementById('con_ref').style.display='none';
+                flag=true;
+                drawMem();
+                mainCode();
+                s=0;
+            }else if(document.getElementById('ref').checked){
+                document.getElementById('con').style.display='none';
+                document.getElementById('con_ref').style.display='inline';
+                flag=false;
+                drawMain_ref();
+                drawRefMem();
+                s=0;
+            }else{
+                alert("尚未選擇模式！");
+            }
+        }
+
+
+        function auto(){
+            if(flag==true){
+                timer=window.setInterval("linkCanvas();",1000);
+            }else{
+                timer=window.setInterval("linkCanvas_ref();",1000);
+            }
+            
+        }
+
+        function stop(){
+            clearInterval(timer);
+        }
+
+        function enter(){
+            if(flag==true){     //call by value
+                bmi=(parseFloat(document.getElementById('kg').value)*100*100)/(parseFloat(document.getElementById('cm').value)*parseFloat(document.getElementById('cm').value));
+                bmi=bmi.toFixed(2);
+                gen=document.getElementsByName('gender').value;  
+                if(bmi<18.5){
+                    document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+'<br>'+' ，經過診斷結果是<font color=red><b>體重過輕</b></font>';
+                }else if(bmi<24){
+                    document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+'<br>'+' ，經過診斷結果是<font color=red><b>健康體重</b></font>';
+                }else{
+                    if(bmi<27){
+                        document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+'<br>'+' ，經過診斷結果是<font color=red><b>體重過重</b></font>';
+                    }else if(bmi<30){
+                        document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+'<br>'+' ，經過診斷結果是<font color=red><b>輕度肥胖</b></font>';
+                    }else if(bmi<35){
+                        document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+' ，經過診斷結果是<font color=red><b>中度肥胖</b></font>';
+                    }else{
+                        document.getElementById('res').innerHTML='你的 BMI 是 '+bmi+' ，經過診斷結果是<font color=red><b>重度肥胖</b></font>';
+                    }
+                    if(gen=='male'){
+                        document.getElementById('res').innerHTML+='你的腰圍需要小於等於90公分！';
+                    }else{
+                        document.getElementById('res').innerHTML+='你的腰圍需要小於等於80公分！';
+                    }
+                }
+            }else{              //call by reference
+                bmi=(parseFloat(document.getElementById('kg2').value)*100*100)/(parseFloat(document.getElementById('cm2').value)*parseFloat(document.getElementById('cm2').value));
+                bmi=bmi.toFixed(2);
+                gen=document.getElementsByName('gender2').value; 
+            }
+            
+            
+        }
+
+        function drawMem(){
+            ctx1.font="15px sans-serif";
+            ctx1.fillText('height',20,25);
+            ctx1.strokeRect(70,5,100,30);
+            ctx1.fillText('0x00aa',180,25);
+            ctx1.fillText('weight',20,75);
+            ctx1.strokeRect(70,55,100,30);
+            ctx1.fillText('0x00ac',180,75);
+            ctx1.fillText('h',20,125);
+            ctx1.strokeRect(70,105,100,30);
+            ctx1.fillText('0x00ba',180,125);
+            ctx1.fillText('w',20,175);
+            ctx1.strokeRect(70,155,100,30);
+            ctx1.fillText('0x00bc',180,175);
+        }
+
+        function drawBMem(){
+            ctx1.fillText('bmi',20,225);
+            ctx1.strokeRect(70,205,100,30);
+            ctx1.fillText('0x00cc',180,225);
+        }
+
+        function drawBMem2(){
+            ctx3.fillText('bmi',20,225);
+            ctx3.strokeRect(70,205,100,30);
+            ctx3.fillText('0x00cc',180,225);
+        }
+
+        function mainCode(){
+            ctx.font="15px sans-serif";
+            ctx.fillText('import java.util;',10,15);
+            ctx.fillText('public class testBMI{',10,45);
+            ctx.fillText('int height,weight;',10,65);
+            ctx.fillText('public static void main(Strings []args){',25,85);
+            ctx.fillText('Scanner sc=new Scanner(System.in);',40,105);
+            ctx.fillText('height=sc.nextFloat();',40,125);
+            ctx.fillText('weight=sc.nextFloat();',40,145);
+            ctx.fillText('cauBMI(height,weight);',40,165);
+            ctx.fillText('}',25,185);
+
+            ctx.fillText('private static void cauBMI(int h,int w){',25,200);
+            ctx.fillText('int bmi;',40,220);
+            ctx.fillText('bmi=w/((h/100.0)*(h/100.0));',40,240);
+            ctx.fillText('System.out.print("你的BMI數值是"+bmi);',40,260);
+            ctx.fillText('}',25,280);
+            ctx.fillText('}',10,300);
+        }
+
+        function linkCanvas(){
+            document.getElementById('tt').innerHTML=s;
+            switch(s%11){
+                case 0:     //尋找main
+                    // 文字部分
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str+=stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(178,237,250,0.5)";
+                    ctx.fillRect(20,70,300,120);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    break;
+                case 1:     //輸入身高
+                    //文字部分
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(25,110,250,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    ctx1.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx1.fillRect(10,5,250,30);
+                    ctx1.fillStyle='blue';
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillStyle = "black";
+                    drawMem();
+                    break;
+                case 2:     //輸入體重
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(25,130,250,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    ctx1.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx1.fillRect(10,55,250,30);
+                    ctx1.fillStyle = "blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillStyle='black';
+                    drawMem();
+                    break;
+                case 3:     //複製身高
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(90,150,50,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    ctx1.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx1.fillRect(10,105,250,30);
+                    ctx1.fillStyle='blue';
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillStyle = "black";
+                    drawMem();
+                    break;
+                case 4:     //複製體重
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(135,150,50,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    ctx1.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx1.fillRect(10,155,250,30);
+                    ctx1.fillStyle = "blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillStyle = "black";
+                    drawMem();
+                    break;
+                case 5:     //傳值呼叫
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(25,150,250,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    drawMem();
+                    ctx1.fillStyle = "blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillStyle = "black";
+                    break;
+                case 6:     //控制轉移
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(178,237,250,0.5)";
+                    ctx.fillRect(25,190,280,100);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    drawMem();
+                    ctx1.fillStyle = "blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillStyle = "black";
+                    break;
+                case 7:     //宣告BMI
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(30,205,250,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    ctx1.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx1.fillRect(10,205,250,30);
+                    ctx1.fillStyle = "black";
+                    drawMem();
+                    drawBMem();
+                    ctx1.fillStyle="blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillStyle = "black";
+                    break;
+                case 8:     //計算
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(30,225,250,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    drawMem();
+                    drawBMem();
+                    ctx1.fillStyle="blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillText(bmi,70,225);
+                    ctx1.fillStyle = "black";
+                    break;
+                case 9:     //輸出
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx.fillRect(30,245,280,20);
+                    ctx.fillStyle = "black";
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    drawMem();
+                    drawBMem();
+                    ctx1.fillStyle="blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillText(bmi,70,225);
+                    ctx1.fillStyle = "black";
+                    break;
+                case 10:     //結束
+                    document.getElementById('cStep').innerHTML=stepArr[s%11];
+                    str=str+stepArr[s%11]+'\n';
+                    ext.value=str;
+                    str="";
+                    // 先清除畫布，上色，再畫code
+                    ctx.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    mainCode();
+                    //記憶體區段
+                    ctx1.clearRect( 0, 0, document.getElementById('mem').width, document.getElementById('mem').height );
+                    drawMem();
+                    ctx1.fillStyle="blue";
+                    ctx1.fillText(document.getElementById('cm').value,70,25);
+                    ctx1.fillText(document.getElementById('kg').value,70,75);
+                    ctx1.fillText(document.getElementById('cm').value,70,125);
+                    ctx1.fillText(document.getElementById('kg').value,70,175);
+                    ctx1.fillStyle = "black";
+                    stop();
+                    break;
+            }
+            s=s+1;
+        }
+    
+        function drawMain_ref(){
+            ctx2.font="15px sans-serif";
+            ctx2.fillText('import java.util;',10,15);
+            ctx2.fillText('public class refBMI{',10,45);
+            ctx2.fillText('public static void main(Strings []args){',10,65);
+            ctx2.fillText('Scanner sc=new Scanner(System.in);',25,85);
+            ctx2.fillText('Value height=new Value(sc.nextFloat());',40,105);
+            ctx2.fillText('Value weight=new Value(sc.nextFloat());',40,125);
+            ctx2.fillText('cauBMI(height,weight);',40,145);
+            ctx2.fillText('}',25,165);
+            ctx2.fillText('',25,185);
+
+            ctx2.fillText('private static void cauBMI(Value h,Value w){',25,200);
+            ctx2.fillText('int bmi;',40,220);
+            ctx2.fillText('bmi=w.num/((h.num/100.0)*(h.num/100.0));',40,240);
+            ctx2.fillText('System.out.print("你的BMI數值是"+bmi);',40,260);
+            ctx2.fillText('}',25,280);
+            ctx2.fillText('}',10,300);
+            ctx2.fillText('class Value{',10,315);
+            ctx2.fillText('float num ;',25,335);
+            ctx2.fillText('public Value ( ){ }',25,355);
+            ctx2.fillText('public Value(float n){',25,375);
+            ctx2.fillText('this.num = n ;',40,395);
+            ctx2.fillText('}',25,415);
+            ctx2.fillText('}',10,435);
+        }
+
+        function drawRefMem(){
+            ctx3.font="15px sans-serif";
+            ctx3.fillText('height',20,25);
+            ctx3.strokeRect(70,5,100,30);
+            ctx3.fillText('0x00aa',180,25);
+            ctx3.fillText('weight',20,75);
+            ctx3.strokeRect(70,55,100,30);
+            ctx3.fillText('0x00ac',180,75);
+            ctx3.fillText('h',20,125);
+            ctx3.strokeRect(70,105,100,30);
+            ctx3.fillText('0x00ba',180,125);
+            ctx3.fillText('w',20,175);
+            ctx3.strokeRect(70,155,100,30);
+            ctx3.fillText('0x00bc',180,175);
+        }
+    
+        function linkCanvas_ref(){
+            switch(s%11){
+                case 0:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(178,237,250,0.5)";
+                    ctx2.fillRect(20,70,300,100);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    break;
+                case 1:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(25,90,300,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx3.fillRect(10,5,250,30);
+                    ctx3.fillStyle='blue';
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillStyle = "black";
+                    drawRefMem();
+                    break;
+                case 2:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(25,110,300,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx3.fillRect(10,55,250,30);
+                    ctx3.fillStyle = "blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillStyle='black';
+                    drawRefMem();
+                    break;
+                case 3:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(90,130,50,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx3.fillRect(10,105,250,30);
+                    ctx3.fillStyle='blue';
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillStyle = "black";
+                    drawRefMem();
+                    break;
+                case 4:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(135,130,50,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx3.fillRect(10,155,250,30);
+                    ctx3.fillStyle = "blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillStyle = "black";
+                    drawRefMem();
+                    break;
+                case 5:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(25,130,250,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillStyle = "black";
+                    drawRefMem();
+                    break;
+                case 6:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(178,237,250,0.5)";
+                    ctx2.fillRect(25,190,300,100);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    drawRefMem();
+                    ctx3.fillStyle = "blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillStyle = "black";
+                    break;
+                case 7:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main').width, document.getElementById('main').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(30,205,250,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    ctx3.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx3.fillRect(10,205,250,30);
+                    ctx3.fillStyle = "black";
+                    drawRefMem();
+                    drawBMem2();
+                    ctx3.fillStyle="blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillStyle = "black";
+                    break;
+                case 8:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(30,225,300,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    drawRefMem();
+                    drawBMem2();
+                    ctx3.fillStyle="blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillText(bmi,70,225);
+                    ctx3.fillStyle = "black";
+                    break;
+                case 9:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    ctx2.fillStyle = "rgba(232,255,158,0.7)";
+                    ctx2.fillRect(30,245,280,20);
+                    ctx2.fillStyle = "black";
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    drawRefMem();
+                    drawBMem2();
+                    ctx3.fillStyle="blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillText(bmi,70,225);
+                    ctx3.fillStyle = "black";
+                    break;
+                case 10:
+                    document.getElementById('cStep2').innerHTML=stepArr_ref[s%11];
+                    str+=stepArr_ref[s%11]+'\n';
+                    ext2.value=str;
+                    str="";
+                    ctx2.clearRect( 0, 0, document.getElementById('main2').width, document.getElementById('main2').height );
+                    drawMain_ref();
+                    //記憶體區段
+                    ctx3.clearRect( 0, 0, document.getElementById('mem2').width, document.getElementById('mem2').height );
+                    drawRefMem();
+                    ctx3.fillStyle="blue";
+                    ctx3.fillText(document.getElementById('cm2').value,70,25);
+                    ctx3.fillText(document.getElementById('kg2').value,70,75);
+                    ctx3.fillText('0x00aa',70,125);
+                    ctx3.fillText('0x00ac',70,175);
+                    ctx3.fillStyle = "black";
+                    stop();
+                    break;
+            }
+            s++;
+        }
+    </script>
+</html>

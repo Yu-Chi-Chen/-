@@ -1,0 +1,39 @@
+.object, .box {
+	text-align: center;
+	margin: auto;
+}
+
+.object {
+	width: 100px;
+	height: 20px;
+	/* line-height: zpx; */
+
+	border: 1px solid #01050cb6;
+	background-color: #6ff7b3a4;
+	margin-top: 3px;
+	/* color: rgb(19, 2, 2); */
+}
+
+.box {
+	width:120px;
+	height:25px;
+	/* line-height: 150px; */
+
+	border: 1px solid rgba(0, 0, 0, 0.678);
+	position: relative;
+}
+
+.box > .object {
+	position: absolute;
+	/* top:50%;
+	left: 50%; */
+	/* transform: translate(-50%, -50%); */
+}
+
+.dragging {
+  opacity: .25;
+}
+
+.box-hover {
+  background-color: rgba(218,218,218,1);
+}

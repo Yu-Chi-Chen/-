@@ -1,0 +1,269 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-eqiv="x-UA-Compaible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <!---導覽列選項--->
+        <nav class="navbar navbar-expand-sm bg-light">
+            <img id="logo" src="./javalogo.png" alt="logo"><span>Java Function</span>
+            <button class="navbar-toggler border-light bg-light" type="button" 
+	          data-toggle="collapse" data-target="#navbarNavDropdown" 
+	          aria-controls="navbarNavDropdown" aria-expanded="false" 
+			  aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+	        </button>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="./1-1(主頁)認識函數.html">概念</a></li>
+                <li class="nav-item"><a class="nav-link" href="./2-1函式定義.html">定義</a></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">呼叫</a>
+                    <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="./3-1函式呼叫.html">函式呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-2傳值呼叫與傳址呼叫.html">傳值呼叫與傳址呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-3傳陣列.html">傳陣列呼叫</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="./4-1控制權的概念.html">控制權轉移</a></li>
+                <li class="nav-item"><a class="nav-link" href="./5-1函式呼叫模擬.html">模擬</a></li>
+                <li class="nav-item"><a class="nav-link" href="./6-1測驗.html">測驗</a></li>
+            </ul>
+            <!--導覽列的搜尋列-->
+            <form class="navSearch">
+                <input class="form-control mr-sm-2" type="search" placeholder="找不到東西的搜尋列" />
+                <button><i class="fas fa-search" id="searchbutton"></i>Search</button>
+            </form>
+        </nav>
+
+        <div id='testContent'>
+            <table border=1>
+                <tr>
+                    <td width=500><span id='qn'>1.</span></td>
+                    <td width=500>Solution<span id='type'></span></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p id='tc'>
+                            public class recmethod1 {<br>
+                            &nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int [] ss1={5,4,3,2,1,0};<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recF(ss1,0,ss1.length-1);<br>
+                                &nbsp;&nbsp;&nbsp;}<br>
+                                &nbsp;&nbsp;&nbsp;public static void recF(int [] a, int m, int n){ <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(a[m]+","+a[n]+"#");<br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(m < n ){
+                                        <br>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recF(a, m+1,n-1);<br> 
+                                    &nbsp;&nbsp;&nbsp;}<br>
+                            }<span id='tcs'></span></p><br>
+                    </td>
+                    <td colspan="2"  height=550> <p id='sol'></p></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type='text' id='usin'>
+                        <input type=button id='sure' onclick='ChangeDisabled(1); sure();' value='Sure'>
+                        <input type='button' id='viewsol' disabled='disabled' onclick="viewSolution();" value="看完整步驟">
+                        <input type=button id="ne" onclick='ChangeDisabled(2); next();' value='Next'>
+                        
+                    </td>
+                    <td><span id='showSol'></span></td>
+                </tr>
+                
+                
+            </table>
+            
+            
+        </div>
+        <div id='testStack' style="display:none">
+            <iframe src='./6-11stackTest.html' border=0 width=100% height="100%"></iframe>
+        </div>
+
+
+        
+
+    </body>
+
+    <script>
+        var num=0;
+        var sc=0;
+        var tc=document.getElementById('tc');
+        var input="";
+
+        function ChangeDisabled(x){
+            if(x==1){
+                $("#viewsol").removeAttr("disabled");
+                $("#sure").attr("disabled", "disabled");
+            }else{
+                $("#viewsol").attr("disabled", "disabled");
+                $("#sure").removeAttr("disabled");
+            }
+        }
+    
+        function sure(){    //check answer
+            input=document.getElementById('usin').value.split(" ").join("");
+            document.getElementById('tcs').innerHTML=input;
+            ckAns(input);
+        }
+
+        function next(){
+            num+=1;
+            document.getElementById('qn').innerText=num.toString()+'.';
+            switch(num){
+                case 1:
+                    c1();
+                    break;
+                case 2:
+                    c2();
+                    break;
+                case 3:
+                    c3();
+                    break;
+                case 4:
+                    c4(1);
+                    break;
+                case 5:
+                    c4(2);
+                    break;
+                case 6:
+                    c5();
+                    break;
+            }
+            document.getElementById('sol').innerHTML='';
+            document.getElementById('showSol').innerText='';
+            document.getElementById('type').innerHTML='';
+        }
+
+        function ckAns(str){
+            switch(num){
+                case 0:
+                    if(input=='5,0#4,1#3,2#2,3#'){
+                        sc+=10;
+                    }else{ 
+                        document.getElementById('showSol').innerText="正確答案為5,0#4,1#3,2#2,3#";
+                    }
+                    break;
+                case 1:
+                    if(input=='02468')sc+=10;
+                    else document.getElementById('showSol').innerText="正確答案為02468";
+                    break;
+                case 2:
+                    if(input=='n+r1(n-2)')sc+=10;
+                    else document.getElementById('showSol').innerText="正確答案為n+r1(n-2)";
+                    break;
+                case 3:
+                    if(input=='m6();m5();')sc+=10;
+                    else document.getElementById('showSol').innerText="正確答案為m6();m5();";
+                    break;
+                case 4:
+                    if(input=='110'){
+                        sc+=10;
+                    }else{
+                        document.getElementById('showSol').innerText="正確答案為110";
+                    } 
+                    break;
+                case 5:
+                    if(input=='1,1,0,') sc+=10;
+                    else document.getElementById('showSol').innerText="正確答案為1,1,0,";
+                    break;
+
+            }
+                
+        }
+
+        function viewSolution(){
+            switch(num){
+                case 0:
+                    document.getElementById('type').innerHTML='遞迴函式';
+                    document.getElementById('sol').innerHTML='recF(ss1,0,ss1.length-1)，意即複製ss1到陣列A，0複製到m記憶體，ss1.length-1=5，5複製到n記憶體'+'<br>'
+                    +'輸出a[m]+","+a[n]+"#"，即5,0#'+'(a[0]=5,a[5]=0)'+'<br>'+'符合"m < n"，所以呼叫recF(a, m+1,n-1)，即呼叫recF(ss1,1,4)'+"<br>"+"複製ss1到陣列A，1複製到m記憶體，4複製到n記憶體"
+                    +'輸出a[m]+","+a[n]+"#"，即4,1#，此時全部輸出為5,0#4,1#'+'<br>'+'符合m < n，所以呼叫recF(ss1,2,3)，複製ss1到陣列a的記憶空間，2複製到m記憶體，3複製到n記憶體'+'<br>'
+                    +'輸出a[m]+","+a[n]+"#"，即3,2#，此時全部輸出為5,0#4,1#3,2#'+"<br>"+'符合m < n，所以呼叫recF(ss1,3,2)，複製S1到陣列a的記憶空間，3複製到m記憶體，2複製到n記憶體'+'<br>'
+                    +'輸出a[m]+","+a[n]+"#"，即2,3#，此時全部輸出為5,0#4,1#3,2#2,3#'+"<br>"+'由於不符合m < n，函式停止繼續呼叫，控制權轉移回主程式，最終得到輸出'+"<font color=red>"+'5,0#4,1#3,2#2,3#'+'</font>'
+                    break;
+                case 1:
+                    document.getElementById('type').innerHTML='遞迴函式';
+                    document.getElementById('sol').innerHTML='傳值呼叫函式recH，複製陣列的第一個元素到陣列a'+'複製0到n記憶體'+'因為n < a.length-1(即4)成立'+'故呼叫函式recH(ss3,1)'
+                    +'而輸出a[n](即輸出8)則放入堆疊'+'呼叫函式recH(ss3,1)'+'因為又符合n < a.length-1'+'故呼叫函式recH(ss3,2)'+'而輸出6一樣先放堆疊'+'呼叫函式recH(ss3,2)'+'因為又符合n < a.length-1'
+                    +'故一樣呼叫函式recH(ss3,3)，而輸出4則先壓入堆疊'+'呼叫函式recH(ss3,3)'+'因為又符合n < a.length-1'+'故呼叫函式recH(ss3,4)'+'而輸出2則先壓入堆疊'+'呼叫函式recH(ss3,4)'
+                    +'由於已經不符合n < a.length-1'+'故無需再呼叫函式，直接輸出a[4]，即輸出0'+'recH(ss3,4)完成執行，控制權轉移回recH(ss3,3)'+'輸出2'+'recH(ss3,3)完成執行'+'控制權轉移回recH(ss3,2)'
+                    +'輸出4'+'recH(ss3,2)結束執行，控制權轉移回recH(ss3,1)'+'輸出6'+'recH(ss3,1)完成執行，控制權轉移回recH(ss3,0)'+'輸出8'+'recH(ss3,0)完成執行，控制權轉移回主程式'+'程式執行結束'
+                    +'得到最後輸出為<font color=red>'+'02468'+'<font>';
+                    break;
+                case 2:
+                    break;
+                case 3:
+                document.getElementById('type').innerHTML='堆疊';
+                document.getElementById('sol').innerHTML='r2=m5(m6(m5(g2)))，控制權先轉移至m5()，複製m6(m5(g2))到m5區域變數g2的記憶體'+'呼叫函式m6()，控制權轉移至m6'
+                +'複製m5(g2)到m6的區域變數g2的記憶體'+'呼叫函式m5(g2)'+'複製g2的值到m5的記憶體'+'回傳g2+2'+'即回傳7+2=9'+'m5執行結束，控制權轉移回呼叫它的函式m6'+'m5回傳的9複製到m6的g2記憶體'
+                +'回傳g2/r2=3，'+'程式執行結束'+'控制權轉移至呼叫它的m5，'+'m6回傳的3複製到m5的g2記憶體，'+'回傳3+2=5，'+'程式執行結束，'+'控制權轉移回呼叫它的主程式'+'r2=5'+'<br>由以上說明可以知道在處理m5(g2)時，stack由top至buttom為'
+                +'<font color=red>'+'m6();m5();'+'</font>';
+                    break;
+                case 4:
+                    document.getElementById('type').innerHTML='遞迴函式';
+                    document.getElementById('sol').innerHTML='函式呼叫recC(6)，複製6到recC的區域變數n的記憶體，由於符合n > 0，故呼叫函式recC(6/2)，即呼叫函式recC(3)。輸出n%2=0則壓入堆疊。'
+                    +'呼叫函式recC(3)，複製3到recC的區域變數n的記憶體，由於符合3 > 0，故呼叫函式recC(3/2)，即呼叫函式recC(1)，而輸出3%2=1則壓入堆疊。呼叫函式recC(1)，複製1到recC的區域變數n，由於符合1 > 0'
+                    +'故呼叫函式recC(1/2)，即呼叫函式recC(0)，輸出n%2=1放入堆疊。函式呼叫recC(0)。由於已經不符合n > 0條件，故程式執行結束，控制權轉移回呼叫該程式的rec(1)，從堆疊中pop輸出1，程式執行結束，控制權轉移回呼叫該程式的'
+                    +'recC(3)，從stack中pop輸出1，程式執行結束，控制權轉移回呼叫該函式的recC(6)，從stack中pop輸出0。程式執行結束，控制權轉移回主程式，全部程式執行完畢，得到最終輸出結果為'
+                    +'<font color=red>110</font>';
+                    break;
+                case 5:
+                    document.getElementById('type').innerHTML='堆疊';
+                    document.getElementById('sol').innerHTML='函式呼叫recC(6)，複製6到recC的區域變數n的記憶體，由於符合n > 0，故呼叫函式recC(6/2)，即呼叫函式recC(3)。輸出n%2=0則壓入堆疊。'
+                    +'呼叫函式recC(3)，複製3到recC的區域變數n的記憶體，由於符合3 > 0，故呼叫函式recC(3/2)，即呼叫函式recC(1)，而輸出3%2=1則壓入堆疊。呼叫函式recC(1)，複製1到recC的區域變數n，由於符合1 > 0'
+                    +'故呼叫函式recC(1/2)，即呼叫函式recC(0)，輸出n%2=1放入堆疊。函式呼叫recC(0)。由於已經不符合n > 0條件，故程式執行結束，控制權轉移回呼叫該程式的rec(1)，從堆疊中pop輸出1，程式執行結束，控制權轉移回呼叫該程式的'
+                    +'recC(3)，從stack中pop輸出1，程式執行結束，控制權轉移回呼叫該函式的recC(6)，從stack中pop輸出0。程式執行結束，控制權轉移回主程式，全部程式執行完畢，得到最終輸出結果為'
+                    +'110'+'<br><br>由以上說明可以知道依序為'+'<font color=red>1,1,0,</font>';
+                    break;
+            }
+        }
+
+        function c1(){
+            tc.innerHTML='public class recmethod1 {'+'<br>'+'&nbsp;&nbsp;&nbsp;'+'public static void main(String[] args) {'+'<br>'+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int [] ss3={8,6,4,2,0};'+'<br>'
+            +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recH(ss3,0); '+'<br>'
+            +'&nbsp;&nbsp;&nbsp;}'+'<br>'+'&nbsp;&nbsp;&nbsp;public static void recH(int[] a, int n)  { '+'<br>'+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n < a.length-1)'+'<br>'
+            +'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recH(a, n+1); '+'<br>'+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(a[n]);'+'<br>'+'&nbsp;&nbsp;&nbsp;}'+'<br>'+'}';
+        }
+
+        function c2(){
+            tc.innerHTML='為得到n+n-2+n-4+...+4+2，求此遞迴函式畫底線區應填入?'+'<br><br>'+'import java.util.*;'+'<br>'+'public class multi_call {'+'<br>&nbsp;&nbsp;&nbsp;public static void main(String[] args) {'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int y=10;'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int x=r1(y);'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(x);'+'<br>&nbsp;&nbsp;&nbsp;}'
+            +'<br>&nbsp;&nbsp;&nbsp;public static int r1(int n){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 2)'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(n+"+");'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(n+"=");'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 2)'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return __________;'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else '+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return 2;'
+            +'<br>&nbsp;&nbsp;&nbsp;}'+'<br>}';
+        }
+
+        function c3(){
+            tc.innerHTML='public static void (String[] args) {'+'<br>&nbsp;&nbsp;&nbsp;int g2=7;'+'<br>&nbsp;&nbsp;&nbsp;nt r2=m5(m6(m5(g2)));'+'<br>&nbsp;&nbsp;&nbsp;System.out.print(r2);'+'}'
+            +'<br>&nbsp;&nbsp;&nbsp;public static int m5(int g2){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return(g2+2);'+'<br>}'+'<br>&nbsp;&nbsp;&nbsp;public static int m6(int g2){'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int r2=3;'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return(g2/r2);'+'<br>}'+'<br><br>'+'求此程式執行m5(g2)時堆疊由top到bottom依序的函式為？'
+            +'<br>請直接寫函式名稱並以分號間隔 EX:m5();m6();m6();m5();';
+        }
+        function c4(x){
+            if(x==1){
+                tc.innerHTML='public class recmethod1 {'+'<br>&nbsp;&nbsp;&nbsp;public static void main(String[] args) {'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recC(6);'
+            +'}'+'<br>&nbsp;&nbsp;&nbsp;public static void recC (int n){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 0){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 0){'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recC(n/2);'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(n%2);'
+            +'<br>&nbsp;&nbsp;&nbsp;}'+'}'+'<br>求此函式最終輸出結果為?';
+            }else{
+                tc.innerHTML='public class recmethod1 {'+'<br>&nbsp;&nbsp;&nbsp;public static void main(String[] args) {'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recC(6);'
+            +'}'+'<br>&nbsp;&nbsp;&nbsp;public static void recC (int n){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 0){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(n > 0){'
+            +'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recC(n/2);'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(n%2);'
+            +'<br>&nbsp;&nbsp;&nbsp;}'+'}'+'<br><br>問執行到recC(0)時，stack堆疊從top到buttom為?'+'<br>請寫出數字即可，並以分號間隔 EX:5,2,3,';
+            }
+       }
+       function c5(){
+           document.getElementById('testContent').style.display='none';
+           document.getElementById('testStack').style.display='block';
+       }
+
+        // ; 
+    </script>
+</html>

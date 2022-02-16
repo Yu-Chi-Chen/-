@@ -1,0 +1,125 @@
+<html>
+    <head>
+        <title>質因數分解</title>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body onload="random();"> 
+        <table border=1 height=500>
+            <tr>
+                <td width=300>
+                    <h3>請輸入答案於下方文字輸入框</h3>
+                    <p>輸入範例：<br>
+                        48---請輸入--->2*2*2*2*3<br>
+                        732---請輸入--->2*2*3*61<br>
+                        17---請輸入--->17<br>
+                        建議複製格式改數字就好~<br>
+                        題目：<span id="ranQ"></span>
+                    </p>
+                    <input id="usAns"></input><br>
+                    <button id="chk" onclick="checkanswer();">檢查答案</button><button onclick="showStep();">看完整步驟</button>
+                    <button id="next" onclick="random();">下一題</button>
+                    <!-- <input type="radio" name="f" id="f">For迴圈 <br>
+                    <input type="radio" name="f" id="w">While迴圈   <br>
+                    <input type="radio" name="f" id="dw">Do While迴圈   <br>
+                    <input type="number" id="userinput">
+                    <button id="start" onclick="initialize(); choose();">開始運算</button>
+                    <h3>結果如下</h3> -->
+                    <div id="fb">
+                    </div>
+                </td>
+                <td class="sol" style="visibility: hidden;">
+                    <p id="choosebtn">
+                        <button>do...while暴力解題</button>
+                        <button>while解題</button>
+                    </p>
+                    <canvas ></canvas>
+                </td>
+            </tr>
+        </table>
+        
+    </body>
+    <script>
+        var input=0,temp;
+        var divisor="";
+        var rNum=0;
+
+        function initialize(){
+            divisor="";
+        }
+
+        function choose(){
+            input=document.getElementById("userinput").value;
+            temp=input;
+            if(document.getElementById("f").checked){
+                forLoop();
+            }else if(document.getElementById("w").checked){
+                whileLoop();
+            }else if(document.getElementById("dw").checked){
+                dowhileLoop();
+            }else{
+                alert("未選擇要使用的迴圈!!!");
+            }
+        }
+
+        function forLoop(){
+            while(input!=1){
+                for(var i=2;i<=input;i++){
+                    if(input%i==0){
+                        divisor+=i+"*";
+                        input=input/i;
+                        break;
+                    }
+                }
+            }
+            divisor=divisor.substring(0,divisor.length-1);
+            document.getElementById("fb").innerHTML=temp+"="+divisor;
+        }
+
+        function whileLoop(){
+            var i=2;
+            while(input!=1){
+                if(input%i==0){
+                    divisor+=i+"*";
+                    input/=i;
+                    i=1;
+                }
+                ++i;
+            }
+            divisor=divisor.substring(0,divisor.length-1);
+            document.getElementById("fb").innerHTML=temp+"="+divisor;
+        }
+
+        function dowhileLoop(x){
+            var i=2;
+            do{
+                if(x%i==0){
+                    x/=i;
+                    divisor+=i+"*";
+                    i=1;
+                }
+                ++i;
+            }while(x!=1);
+            divisor=divisor.substring(0,divisor.length-1);
+        }
+        function random(){  //1~100隨機亂數
+            rNum=Math.floor(Math.random()*100)+1;
+            document.getElementById('ranQ').innerHTML=rNum;
+            document.querySelector('.sol').style.visibility='hidden';
+        }
+        function checkanswer(){
+            var userans=document.getElementById("usAns").value;
+            dowhileLoop(rNum);
+            if(userans==divisor){
+                document.getElementById("fb").innerHTML="答對了!!!!";
+            }else{
+                document.getElementById("fb").innerHTML="答錯了.....正確答案是："+divisor;
+            }
+        }
+        function showStep(){
+            document.querySelector('.sol').style.visibility='visible';
+        }
+    </script>
+    <style>
+        
+    </style>
+</html>

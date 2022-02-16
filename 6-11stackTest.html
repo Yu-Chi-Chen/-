@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" href="./simuStyle.css">
+        
+    </head>
+    <body>
+        <table border=1>
+            <tr>
+                <td width=400><h4>主程式</h4></td>
+                
+                <td width=300><h4>Stack Frame</h4></td>
+                
+            </tr>
+            <tr>
+                <td>
+                    <p id="txtinMain"></p>
+                </td>
+                
+                <td height=500>
+                    <p>
+                        
+                        <div class='box' data-id='f2'></div>
+                        <div class='box' data-id='f1'></div>
+                    </p>
+                </td>
+
+                <td>
+                    <div>
+                        <div class='object' data-id='f1' draggable="true">fiNum1();</div>
+                        <div class='object' data-id='f2' draggable="true">fiNum2();</div>
+                        
+                    </div>
+                </td>
+                
+            </tr>
+        </table>
+        <button onclick='check();'>Sure</button>
+    </body>
+    <script>
+        var txtmain=document.getElementById("txtinMain");
+        var txtsf=document.getElementById("txtinSF");
+        
+        txtmain.innerHTML='public static void main(String []args){'+'<br>&nbsp;&nbsp;&nbsp;int a=52;'+
+            '<br>&nbsp;&nbsp;&nbsp;int i = 4 ;'+'<br>&nbsp;&nbsp;&nbsp;fiNum1(a,i);'+'<br>&nbsp;&nbsp;&nbsp;fiNum2(15);'+'<br>}'+'<br>public static fiNum1(x,y){'+'<br>&nbsp;&nbsp;&nbsp;x=x/y;'
+            +'<br>&nbsp;&nbsp;&nbsp;return fiNum2(x);'+'<br>}'+'<br>public static fiNum2(x){'+'<br>&nbsp;&nbsp;&nbsp;if(x>10){'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return fiNum1(x,6);'
+            +'<br>&nbsp;&nbsp;&nbsp;else{'+'<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(x);'+'<br>&nbsp;&nbsp;&nbsp;}'+'<br>}'
+            +'<br>請問當執行到fiNum2的return fiNum1(x,6)時，stack裡面的堆放方式為?(請拖曳旁邊物件)';
+        
+
+        // 找出每個 object 和 box
+        var objectArray = document.getElementsByClassName("object");
+        var boxArray = document.getElementsByClassName("box");
+
+        // 針對每個 object 加入 event listener
+        for (const object of objectArray) {
+	        // dragstart : 開始拖曳
+            object.addEventListener('dragstart', function(event) {
+    	        // 加入拖曳樣式
+                this.classList.add('dragging');
+
+            // 設置拖曳時要傳送的資料，這裡傳送的是 object 的 data-id
+            event.dataTransfer.setData('text/plain', event.target.getAttribute("data-id"));
+            });
+
+            object.addEventListener('dragend', function() {
+    	    // 拖曳結束時移除樣式
+            this.classList.remove('dragging');
+             });
+        }//End For
+
+        // 針對每個 box 加入 event listener
+        for (const box of boxArray) {
+	        // drop : 當拖曳被放置時觸發 
+            box.addEventListener('drop', function(event) {
+    	    // 取得剛剛拖曳物件時傳送的資料，這裡是指 object 的 data-id
+            var id = event.dataTransfer.getData('text/plain');
+            
+
+            event.target.appendChild(document.querySelector('.object[data-id="' + id + '"'));
+            
+
+            // 終止預設行為及防止事件傳導，避免拖曳時瀏覽器再次處理此物件
+            event.preventDefault();
+            event.stopPropagation();
+                this.classList.remove('box-hover');
+            });
+
+            // dragover : 當拖曳至此物件上方時觸發
+            box.addEventListener('dragover', function() {
+                this.classList.add('box-hover');
+                event.preventDefault();
+                event.stopPropagation();
+            });
+
+            // dragleave : 當拖曳離開此物件時觸發
+            box.addEventListener('dragleave', function() {
+                this.classList.remove('box-hover');
+            })
+        }//End For
+
+        //確認是否放置錯誤
+        function check(){
+            for (const box of boxArray) {
+	        // drop : 當拖曳被放置時觸發 
+            box.addEventListener('drop', function(event) {
+    	    // 若 object 的 id 等於 box 的 id，則可以拖曳成功
+            if (id == event.target.getAttribute("data-id")) {
+                event.target.appendChild(document.querySelector('.object[data-id="' + id + '"'));
+                alert('Correct!');
+            }else{
+                alert('輸入錯誤');
+            }
+            })
+        }//End For
+
+
+            
+        }
+        
+    </script>
+</html>
