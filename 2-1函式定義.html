@@ -1,0 +1,380 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-eqiv="x-UA-Compaible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    
+    <body onload="defMethod();defCh();aceArgCan();">
+        <!---導覽列選項--->
+        <nav class="navbar navbar-expand-sm bg-light">
+            <img id="logo" src="./javalogo.png" alt="logo"><span>Java Function</span>
+            <button class="navbar-toggler border-light bg-light" type="button" 
+	          data-toggle="collapse" data-target="#navbarNavDropdown" 
+	          aria-controls="navbarNavDropdown" aria-expanded="false" 
+			  aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+	        </button>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="./1-1(主頁)認識函數.html">概念</a></li>
+                <li class="nav-item"><a class="nav-link" href="./2-1函式定義.html">定義</a></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">呼叫</a>
+                    <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="./3-1函式呼叫.html">函式呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-2傳值呼叫與傳址呼叫.html">傳值呼叫與傳址呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-3傳陣列.html">傳陣列呼叫</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="./4-1控制權的概念.html">控制權轉移</a></li>
+                <li class="nav-item"><a class="nav-link" href="./5-1函式呼叫模擬.html">模擬</a></li>
+                <li class="nav-item"><a class="nav-link" href="./6-1測驗.html">測驗</a></li>
+            </ul>
+            <!--導覽列的搜尋列-->
+            <form class="navSearch">
+                <input class="form-control mr-sm-2" type="search" placeholder="找不到東西的搜尋列" />
+                <button><i class="fas fa-search" id="searchbutton"></i>Search</button>
+            </form>
+        </nav>
+
+        <h1>函式的定義方法</h1>
+            <canvas id="def" width=500 height=250></canvas
+            >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<canvas id="defCh" width=500 height=250></canvas>
+        <p>
+            <h3>◆ 修飾詞modifiers</h3>
+                <span>Java的修飾詞由存取權限修飾詞及非存取權限修飾詞組成</span>
+                <h4>存取權限修飾詞Access Level Modifiers</h4>
+                <span>Java的存取權限修飾詞分為以下四種</span>
+                <table border=1>
+                    <tr>
+                        <td>修飾詞</td>
+                        <td>同一類別</td>
+                        <td>同一套件</td>
+                        <td>不同套件的子類別</td>
+                        <td>不同套件且非子類別</td>
+                        <td>舉例</td>
+                    </tr>
+                    <tr>
+                        <td>public</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td>public int value=20;</td>
+                    </tr>
+                    <tr>
+                        <td>protected</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td></td>
+                        <td>protected int value=20;</td>
+                    </tr>
+                    <tr>
+                        <td>(default)</td>
+                        <td>√</td>
+                        <td>√</td>
+                        <td></td>
+                        <td></td>
+                        <td>int value=20;</td>
+                    </tr>
+                    <tr>
+                        <td>private</td>
+                        <td>√</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>private int value=20;</td>
+                    </tr>
+                </table>
+                <h6>存取範圍示意圖</h6>
+                <canvas id="aceArg" width=300 height=200></canvas>
+                <p>
+                    <h4>非存取權限修飾詞Non Acess Modifiers</h4>
+                    <span>指的是與存取權無關的修飾詞，主要有以下四種</span>
+                    <ol>
+                    <li>static</li>
+                    <span id="det">意即「靜態」，用於類別方法或變數。</span><br>
+                    <span id="ex">private boolean flag = true ;</span>
+                    <li>final</li>
+                    <span id="det">相當於常數化，宣告後無法更改其宣告的內容，用於類別、方法與變數的實作。</span><br>
+                    <span id="ex">static final double days = 31 ;</span>
+                    <li>abstract</li>
+                    <span id="det">用於建立抽象類別及方法實使用。</span><br>
+                    <span id="ex">protected static final int width = 420 ;</span>
+                    <li>synochronized</li>
+                    <span id="det">執行緒(threads)專用，代表同時只能被一個執行緒使用。</span><br>
+                    </ol>
+                </p>
+                
+            <h3>◆ 回傳值型態</h3>
+                <p>代表使用該方法後，得到結果的資料型態。大部分都是宣告一般資料型態，若使用該方法無回傳值則宣告void(代表空的意思)。</p>
+            <h3>◆ 方法名稱</h3>
+                <p>該方法的名稱。</p>
+            <h3>◆ 參數</h3>
+                <p>即撰寫方法時，方法外部傳進資料的代稱。對於方法而言可有可無。參數的宣告須寫上其資料型態再加上參數名稱。參數名稱是可以隨意亂取，但不能跟全域變數與區域變數的名字相同。</p><br>
+                <span id="ex">EX : Math.random(); 即為不帶參數的方法。</span>
+            <h3>◆ 區域變數</h3>
+                <p>在該方法內部宣告的變數，其有效範圍(Scope)只限定於該方法內，若在方法外面使用則視為無效。執行完方法後會被系統回收空間。</p>
+            <h3>◆ 程式碼區</h3>
+                <p>程式設計者實作該方法的方式</p>
+            <h3>◆ 回傳值</h3>
+                <p>用該方法欲得到的最終目的。其返回的型態為回傳值型態。若無返回值則不須寫。</p><br>
+                <span>固定寫法：return 回返值</span>
+        </p>
+        <br><p id="t"></p><p id="t1"></p>
+    </body>
+    <script>
+        {
+        var canvas1=document.querySelector("#def");
+        var ctx1 = canvas1.getContext("2d");
+        ctx1.scale(2,2);
+        ctx1.font = "8px Arial";
+        var canvas2=document.querySelector("#defch");
+        var ctx2 = canvas2.getContext("2d");
+        ctx2.scale(2,2);
+        ctx2.font = "8px Arial";
+    }
+    var sec=0;
+    var timer=window.setInterval("eventListen()",1000);
+    
+    var tt=document.getElementById("t");
+    var tt1=document.getElementById("t1");
+    
+    function eventListen(){
+        sec++;
+        //tt.innerHTML=sec;
+        selectHighLight(sec);
+    }
+
+    function selectHighLight(sec){
+        switch(sec%7){
+            case 0:
+                highlight1();
+                break;
+            case 1:
+                highlight2();
+                break;
+            case 2:
+                highlight3();
+                break;
+            case 3:
+                highlight4();
+                break;
+            case 4:
+                highlight5();
+                break;
+            case 5:
+                highlight6();
+                break;
+            case 6:
+                highlight7();
+                break;
+        }
+    }
+
+    function defMethod(){
+        ctx1.beginPath();
+        ctx1.fillText("public static",20,20);
+        ctx1.fillText("int",65,20);
+        ctx1.fillText("max ( int num1, int num2 ) {",77,20);
+        ctx1.fillText("int result ;",30,30);
+        ctx1.fillText("if ( num1 < num2 ) {",30,40);
+        ctx1.fillText("result = num1 ;",40,50);
+        ctx1.fillText("}",30,60);
+        ctx1.fillText("else {",30,70);
+        ctx1.fillText("result = num2 ;",40,80);
+        ctx1.fillText("}",30,90);
+        ctx1.fillText("return result ;",30,100);
+        ctx1.fillText("}",20,110);
+        ctx1.closePath();
+    }
+
+    function defCh(){
+        ctx2.beginPath();  
+        ctx2.fillText("修飾詞",20,20);
+        ctx2.fillText("回傳值型態",50,20);
+        ctx2.fillText("方法名稱 ( 參數1, 參數2, ..... ) {",97,20);
+        ctx2.fillText("區域變數",30,30);
+        ctx2.moveTo(20,33);
+        ctx2.lineTo(220,33);
+        ctx2.lineTo(220,90);
+        ctx2.lineTo(20,90);
+        ctx2.lineTo(20,33);
+        ctx2.stroke();
+        ctx2.fillText("自行撰寫的程式碼",85,65);
+        ctx2.fillText("回傳值",30,100);
+        ctx2.fillText("}",20,110);
+        ctx2.closePath();
+    }
+
+    function clearCanvas(){
+        ctx1.clearRect( 0, 0, canvas1.width, canvas1.height ); 
+        ctx2.clearRect( 0, 0, canvas2.width, canvas2.height );  
+    }
+
+    function highlight1(){      //修飾詞
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(192,182,77,0.5)";
+        ctx1.fillRect(20,10,42,10);
+
+        ctx2.fillStyle = "rgba(192,182,77,0.5)";
+        ctx2.fillRect(20,10,25,10);
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight2(){      //回傳值型態
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(250,244,178,0.7)";
+        ctx1.fillRect(65,10,10,10);
+
+        ctx2.fillStyle = "rgba(250,244,178,0.7)";
+        ctx2.fillRect(50,10,40,10);
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight3(){      //方法名稱
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(181,250,178,0.7)";
+        ctx1.fillRect(75,10,18,10);
+
+        ctx2.fillStyle = "rgba(181,250,178,0.7)";
+        ctx2.fillRect(95,10,35,10);
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight4(){      //參數列表  
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(181,250,178,0.7)";
+        ctx1.fillRect(98,13,70,10);
+
+        ctx2.fillStyle = "rgba(181,250,178,0.7)";
+        ctx2.fillRect(135,13,65,10);
+        ctx2.font = "8px Arial";
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight5(){      //區域變數  
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(178,237,250,0.7)";
+        ctx1.fillRect(28,22,40,10);
+
+        ctx2.fillStyle = "rgba(178,237,250,0.7)";
+        ctx2.fillRect(28,22,40,10);
+        ctx2.font = "8px Arial";
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight6(){      //自行撰寫的Code  
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(232,178,250,0.7)";
+        ctx1.fillRect(20,33,200,60);
+
+        ctx2.fillStyle = "rgba(232,178,250,0.7)";
+        ctx2.fillRect(20,33,200,57);
+        ctx2.font = "8px Arial";
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function highlight7(){      //回傳值
+        clearCanvas(); 
+        ctx1.beginPath();
+        ctx1.fillStyle = "rgba(250,178,191,0.7)";
+        ctx1.fillRect(30,90,50,13);
+
+        ctx2.fillStyle = "rgba(250,178,191,0.7)";
+        ctx2.fillRect(30,90,25,13);
+        ctx2.font = "8px Arial";
+        ctx1.fillStyle="black";
+        ctx2.fillStyle="black";
+        ctx2.closePath();
+        defMethod();
+        defCh();
+    }
+
+    function aceArgCan(){       //畫出存取權限
+        ctx3=document.getElementById("aceArg").getContext("2d");
+        ctx3.beginPath();
+        ctx3.fillStyle="rgba(247,250,178,0.7)";
+        ctx3.arc(150,100,95,0,360);
+        ctx3.fill();
+        ctx3.stroke();
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="black";
+        ctx3.fillText("public",150,20);
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="rgba(195,250,178,0.7)";
+        ctx3.arc(150,100,75,0,360);
+        ctx3.fill();
+        ctx3.stroke();
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="black";
+        ctx3.fillText("protected",125,40);
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="rgba(197,173,255,0.7)";
+        ctx3.arc(150,100,55,0,360);
+        ctx3.fill();
+        ctx3.stroke();
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="black";
+        ctx3.fillText("(default)",130,60);
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="rgba(173,228,255,0.7)";
+        ctx3.arc(150,100,35,0,360);
+        ctx3.fill();
+        ctx3.stroke();
+        ctx3.closePath();
+
+        ctx3.beginPath();
+        ctx3.fillStyle="black";
+        ctx3.fillText("private",140,80);
+        ctx3.closePath();
+    }
+    </script>
+</html>

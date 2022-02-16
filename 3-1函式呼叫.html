@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-eqiv="x-UA-Compaible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <script src="js/jquery-3.4.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="./style.css">
+    </head>
+    <body>
+        <!---導覽列選項--->
+        <nav class="navbar navbar-expand-sm bg-light">
+            <img id="logo" src="./javalogo.png" alt="logo"><span>Java Function</span>
+            <button class="navbar-toggler border-light bg-light" type="button" 
+	          data-toggle="collapse" data-target="#navbarNavDropdown" 
+	          aria-controls="navbarNavDropdown" aria-expanded="false" 
+			  aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+	        </button>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="./1-1(主頁)認識函數.html">概念</a></li>
+                <li class="nav-item"><a class="nav-link" href="./2-1函式定義.html">定義</a></li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">呼叫</a>
+                    <ul class="dropdown-menu"  aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="./3-1函式呼叫.html">函式呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-2傳值呼叫與傳址呼叫.html">傳值呼叫與傳址呼叫</a></li>
+                        <li><a class="dropdown-item" href="./3-3傳陣列.html">傳陣列呼叫</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="./4-1控制權的概念.html">控制權轉移</a></li>
+                <li class="nav-item"><a class="nav-link" href="./5-1函式呼叫模擬.html">模擬</a></li>
+                <li class="nav-item"><a class="nav-link" href="./6-1測驗.html">測驗</a></li>
+            </ul>
+            <!--導覽列的搜尋列-->
+            <form class="navSearch">
+                <input class="form-control mr-sm-2" type="search" placeholder="找不到東西的搜尋列" />
+                <button><i class="fas fa-search" id="searchbutton"></i>Search</button>
+            </form>
+        </nav>
+
+        <h1>方法呼叫</h1>
+        <p>函式呼叫的方法有以下兩種</p>
+        <ol>
+            <div>
+                <li><h3>使用Java提供的函式</h3></li>
+                <p>import類別，使用Java提供的套件</p>
+                <img src="./import類別範例圖.png">
+            </div>
+            <div>
+                <li><h3>主程式呼叫自行撰寫的函式</h3></li>
+                <p>若要執行寫的方法，則需在Java內呼叫它。依據方法是否有回傳值而有以下兩種呼叫的方式：</p>
+                <ul>
+                    <li>有回傳值的方法</li>
+                    <p>若有回傳值，方法回返的結果會視為一般資料，可以直接使用。<br>
+                        <span id="ex">EX:&nbsp;&nbsp;&nbsp;&nbsp;int larger = max(3,17);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//max方法本身回傳一個int值，宣告一個相同型態的變數直接去接收它回傳的值。</span>
+                    </p>
+                    <li>沒有回傳值的方法</li>
+                    <p>若無回傳值(即回傳void)，則方法內可能為一個敘述。<br>
+                       <span id="ex">EX:&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("方法實作完成");</span></p>
+                </ul>
+            </div>
+            
+        </ol>
+        <h2>main方法</h2>
+            <span>Example</span><br>
+            <iframe src="./3-11函式呼叫範例程式(用iframe).html" width=1000 height=450></iframe><br>
+            <span>在上面的舉例我們可以看到這個class裡有main方法及max方法。<br>
+                main方法跟一般方法一樣具有修飾詞、回傳型態、方法名稱以及參數，但main方法和一般方法的差異在於<b>main方法由JVM呼叫</b></bold>，用於呼叫執行整個程式。</span>
+    </body>
+    <script>
+        
+    </script>
+</html>
